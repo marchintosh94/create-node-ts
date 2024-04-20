@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "typeRoots": ["./node_modules/@types", "./src/"],
+    "skipLibCheck": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.d.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

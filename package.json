@@ -1,0 +1,31 @@
+{
+  "name": "create-node-ts",
+  "version": "1.0.0",
+  "description": "NodeJS TypeScript projects generator by @marchintosh",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "start": "ts-node src/index.ts"
+  },
+  "bin": {
+    "create-node-ts": "dist/index.js"
+  },
+  "keywords": [
+    "typescript",
+    "project generator",
+    "node"
+  ],
+  "author": "marchintosh94 <marcobaratto@icloud.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.4.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^5.0.1",
+    "asciiart-logo": "^0.2.7"
+  }
+}

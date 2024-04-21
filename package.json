@@ -1,5 +1,5 @@
 {
-  "name": "create-node-ts",
+  "name": "@marchintosh94/create-node-ts",
   "version": "1.0.0",
   "description": "NodeJS TypeScript projects generator by @marchintosh",
   "main": "dist/index.js",
@@ -19,6 +19,9 @@
     "node"
   ],
   "author": "marchintosh94 <marcobaratto@icloud.com>",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "ts-node": "^10.4.0",

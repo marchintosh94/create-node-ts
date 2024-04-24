@@ -19,9 +19,6 @@
     "node"
   ],
   "author": "marchintosh94 <marcobaratto@icloud.com>",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "license": "MIT",
   "devDependencies": {
     "ts-node": "^10.4.0",

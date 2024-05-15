@@ -1,6 +1,6 @@
 {
   "name": "@marchintosh94/create-node-ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "NodeJS TypeScript projects generator by @marchintosh",
   "main": "dist/index.js",
   "files": [

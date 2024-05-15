@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsc && cp -rv ./template dist/",
     "start": "ts-node src/index.ts"
   },
   "bin": {
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^5.0.1",
-    "asciiart-logo": "^0.2.7"
+    "asciiart-logo": "^0.2.7",
+    "chalk": "^4.1.2"
   }
 }

@@ -5,6 +5,8 @@ import { getPackageJson } from './packageJson'
 import { tsconfigJson } from './tsconfigJson'
 import * as fs from 'fs'
 import { execSync } from 'child_process'
+import * as path from 'path'
+import * as chalk from 'chalk'
 
 const wantsCreateNewFolder = async () =>
   await select({
@@ -68,51 +70,71 @@ const main = async () => {
   console.log('✅ tsconfig.json created')
   fs.mkdirSync('src')
   console.log('✅ src folder created')
-  fs.writeFileSync('src/index.ts', '')
+  fs.writeFileSync('src/index.ts', 'console.log("Hello NodeTS! 🚀")')
   console.log('✅ src/index.ts created')
+  console.log('')
 
   //install dev dependencies
   console.log('Installing dev dependencies...')
-  execSync('npm install --save-dev typescript', { stdio: 'inherit' })
-  console.log('✅ typescript installed')
-  execSync('npm install --save-dev ts-node', { stdio: 'inherit' })
-  console.log('✅ ts-node installed')
-  execSync('npm install --save-dev jest', { stdio: 'inherit' })
-  console.log('✅ jest installed')
-  execSync('npm install --save-dev @types/jest', { stdio: 'inherit' })
-  console.log('✅ @types/jest installed')
-  execSync('npm install --save-dev @types/node', { stdio: 'inherit' })
-  console.log('✅ @types/node installed')
-  execSync('npm install --save-dev ts-jest', { stdio: 'inherit' })
-  console.log('✅ ts-jest installed')
-  execSync('npm install --save-dev husky', { stdio: 'inherit' })
-  console.log('✅ husky installed')
-  execSync('npm install --save-dev lint-staged', { stdio: 'inherit' })
-  console.log('✅ lint-staged installed')
-  console.log('✅ All dev dependencies installed')
+  const devDependencies = [
+    'typescript',
+    'jest',
+    'ts-jest',
+    'husky',
+    'lint-staged',
+    '@types/jest',
+    '@types/node',
+    'ts-node'
+  ]
+  execSync(`npm install --save-dev -s ${devDependencies.join(' ')}`, {
+    stdio: 'inherit'
+  })
+  console.log(`✅ ${chalk.greenBright('typescript')} installed`)
+  console.log(`✅ ${chalk.greenBright('ts-node')} installed`)
+  console.log(`✅ ${chalk.greenBright('jest')} installed`)
+  console.log(`✅ ${chalk.greenBright('@types/jest')} installed`)
+  console.log(`✅ ${chalk.greenBright('@types/node')} installed`)
+  console.log(`✅ ${chalk.greenBright('ts-jest')} installed`)
+  console.log(`✅ ${chalk.greenBright('husky')} installed`)
+  console.log(`✅ ${chalk.greenBright('lint-staged')} installed`)
+  console.log(`✅ All dev dependencies installed`)
+  console.log('')
 
   //copy all configuration files from template folder
   console.log('Copying configuration files...')
-  fs.copyFileSync('../template/jest.config.ts', 'jest.config.ts')
-  console.log('✅ jest.config.ts copied')
-  fs.copyFileSync('../template/.gitignore', '.gitignore')
-  console.log('✅ .gitignore copied')
-  fs.copyFileSync('../template/.prettierrc', '.prettierrc')
-  console.log('✅ .prettierrc copied')
-  fs.copyFileSync('../template/.prettierignore', '.prettierignore')
-  console.log('✅ .prettierignore copied')
-
-  //init and config husky and lint-staged
-  console.log('Configuring husky...')
-  execSync('npx husky init', { stdio: 'inherit' })
-  execSync("echo 'npm test' >> .husky/pre-commit", { stdio: 'inherit' })
-  execSync("echo 'npx lint-staged' >> .husky/pre-commit", { stdio: 'inherit' })
-  console.log('✅ husky configured')
+  const templatePath = path.join(__dirname, 'template')
+  const files = fs.readdirSync(templatePath)
+  files.forEach((file) => {
+    fs.copyFileSync(path.join(templatePath, file), file)
+    console.log(`✅ ${file} copied`)
+  })
 
   //init git
+  console.log('')
   console.log('Initializing git...')
+  const gitIgnore = [
+    'node_modules',
+    'dist',
+    '.DS_Store',
+    '.env.local',
+    '.env.development.local',
+    '.env.test.local',
+    '.env.production.local',
+    'coverage',
+    'build'
+  ]
+  fs.writeFileSync('.gitignore', gitIgnore.join('\n'))
   execSync('git init -b main', { stdio: 'inherit' })
+  console.log('✅ git initialized')
 
+  //init and config husky and lint-staged
+  console.log('')
+  console.log('Configuring husky...')
+  execSync('npx husky init', { stdio: 'inherit' })
+  execSync("echo npx lint-staged >> .husky/pre-commit", { stdio: 'inherit' })
+  console.log('✅ husky configured')
+
+  console.log('')
   console.log('✅ All done!')
   console.log('Happy coding! 🚀')
 }
